@@ -142,10 +142,6 @@ class VisualizacionApp:
 
         self.current_plot = canvas  # Establece la gráfica actual
 
-        # Oculta los botones de gráficos
-        self.btn_temperatura.pack_forget()
-        self.btn_presion.pack_forget()
-        self.btn_colision.pack_forget()
 
     def mostrar_graficos_colision(self):
         if self.current_plot is not None:
@@ -165,10 +161,6 @@ class VisualizacionApp:
 
         self.current_plot = canvas  # Establece la gráfica actual
 
-        # Oculta los botones de gráficos
-        self.btn_temperatura.pack_forget()
-        self.btn_presion.pack_forget()
-        self.btn_colision.pack_forget()
 
     def cerrar_grafica(self):
         if self.current_plot is not None:

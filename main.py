@@ -19,6 +19,7 @@ class VisualizacionApp:
         self.btn_siguiente = tk.Button(self.frame_graficas, text="Siguiente", command=self.toggle_grafico, font=("Helvetica", 10))
         self.btn_siguiente.pack(side=tk.TOP, anchor=tk.E)
         self.btn_siguiente.pack_forget()
+        self.contador_graficos = 0
         root.protocol("WM_DELETE_WINDOW", self.cerrar_aplicacion)
 
 
@@ -73,7 +74,7 @@ class VisualizacionApp:
         plt.xlabel('Fecha')
         plt.ylabel('Temperatura')
         plt.grid(True)
-        plt.xticks(rotation=45)  # Rotar etiquetas del eje x para una mejor visualización
+
 
         # Agregar el gráfico al Canvas
         canvas = FigureCanvasTkAgg(fig, master=self.frame_graficas)
@@ -95,12 +96,12 @@ class VisualizacionApp:
 
         # Crear el gráfico de Temperatura vs Fecha
         fig = plt.figure(figsize=(10, 3))
-        plt.plot(self.df['Fecha'], self.df['Temperatura'], marker='o', linestyle='-')
-        plt.title('Gráfico de Línea: Temperatura vs Fecha')
+        plt.fill_between(self.df['Fecha'], self.df['Temperatura'], color='skyblue', alpha=0.7)
+        plt.title('Gráfico de Área: Temperatura vs Fecha')
         plt.xlabel('Fecha')
         plt.ylabel('Temperatura')
         plt.grid(True)
-        plt.xticks(rotation=45)  # Rotar etiquetas del eje x para una mejor visualización
+
 
         # Agregar el gráfico al Canvas
         canvas = FigureCanvasTkAgg(fig, master=self.frame_graficas)
@@ -117,12 +118,14 @@ class VisualizacionApp:
         self.btn_siguiente.pack(side=tk.TOP, anchor=tk.E)
 
     def toggle_grafico(self):
-        if self.mostrar_histograma:
+        if self.contador_graficos == 0:
             self.mostrar_histograma_temperatura()
-        else:
+        elif self.contador_graficos == 1:
             self.mostrar_grafico_linea_temperatura()
-        self.mostrar_histograma = not self.mostrar_histograma
-
+        else:
+            self.mostrar_temperatura_vs_fecha()
+        self.contador_graficos = (self.contador_graficos + 1) % 3
+            
     def mostrar_graficos_presion(self):
         if self.current_plot is not None:
             self.current_plot.get_tk_widget().pack_forget()  # Oculta la gráfica actual

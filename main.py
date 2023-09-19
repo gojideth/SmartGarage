@@ -96,11 +96,10 @@ class VisualizacionApp:
 
         # Crear el gráfico de Temperatura vs Fecha
         fig = plt.figure(figsize=(10, 3))
-        plt.fill_between(self.df['Fecha'], self.df['Temperatura'], color='skyblue', alpha=0.7)
-        plt.title('Gráfico de Área: Temperatura vs Fecha')
-        plt.xlabel('Fecha')
+        plt.subplot(131)  # 1 fila, 3 columnas, posición 1
+        plt.boxplot(self.df['Temperatura'])
+        plt.title('Boxplot de Temperatura')
         plt.ylabel('Temperatura')
-        plt.grid(True)
 
 
         # Agregar el gráfico al Canvas
